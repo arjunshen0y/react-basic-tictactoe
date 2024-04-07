@@ -25,9 +25,9 @@ function Board({ xIsNext, squares, onPlay }) {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = winner + ' Wins' ;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    status = (xIsNext ? 'X' : 'O') + ' Play';
   }
 
   return (
@@ -70,15 +70,11 @@ export default function Game() {
 
   const moves = history.map((sqaures, move) => {
     let description;
-    if (move > 0) {
-      description = 'Go to move #' + move;
-    } else {
-      description = 'Go to game start';
+    if (move === 0) {
+      description = 'Reset';
     }
     return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
-      </li>
+        <button className="image-button" onClick={() => jumpTo(move)}></button>
     )
   });
 
@@ -88,7 +84,7 @@ export default function Game() {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        {moves[0]}
       </div>
     </div>
   );
